@@ -8,7 +8,10 @@ void criar_lista(arrey * lista){
     lista->fim = 0;
     lista->inicio = 0;
 }
-void inserir_inicio(arrey * lista, int dado){
+void inserir_inicio(arrey * lista ){
+    int dado;
+    printf("Digite o novo conteudo qeu deseja inserir: ");
+    scanf("%d", &dado);
         for (int i = lista->fim; i >= 0 ; --i) {
             lista->vet[i+1] = lista->vet[i];
         }
@@ -16,20 +19,29 @@ void inserir_inicio(arrey * lista, int dado){
         lista->vet[lista->inicio] = dado;
 
 }
-void inserir_fim(arrey* lista, int dado){
+void inserir_fim(arrey* lista){
+    int dado;
+    printf("Digite o novo conteudo qeu deseja inserir: ");
+    scanf("%d", &dado);
     if (lista->inicio = 0){
-        inserir_inicio(lista,dado);
+        inserir_inicio(lista);
     } else {
         lista->vet[lista->fim] = dado;
         lista->fim++;
     }
 }
-void inserir_posicao(arrey* lista, int dado, int posis){
+void inserir_posicao(arrey* lista){
+    int dado;
+    int posis;
+    printf("Digite a Posição que deseja inserir: ");
+    scanf("%d", &posis);
+    printf("Digite o novo conteudo da posição |%d|: ", posis);
+    scanf("%d", &dado);
     posis --;
     if(posis == 0 || posis == 1){
-        inserir_inicio(lista,dado);
+        inserir_inicio(lista);
     }else if(posis == lista->fim){
-        inserir_fim(lista,dado);
+        inserir_fim(lista);
     }else {
         for (int i = lista->fim; i >= posis; --i) {
             lista->vet[i + 1] = lista->vet[i];
@@ -37,6 +49,17 @@ void inserir_posicao(arrey* lista, int dado, int posis){
         lista->vet[posis] = dado;
         lista->fim++;
     }
+}
+void remover_por_indice(arrey * lista){
+    int index;
+    printf("Digite o indice que deseja excluir: ");
+    scanf("%d", &index);
+    index --;
+    for (int i= index; i <=lista->fim ; ++i) {
+            lista->vet[i] = lista->vet[i+1];
+    }
+    lista->fim --;
+
 }
 void remover_inicio(arrey* lista){
     for (int i = 0; i <lista->fim ; ++i) {
@@ -57,20 +80,37 @@ void imprimir(arrey lista){
 int main() {
     arrey  lista;
     criar_lista(&lista);
-    inserir_inicio(&lista, 2);
-    inserir_inicio(&lista, 3);
-    inserir_inicio(&lista, 5);
-    inserir_inicio(&lista, 99);
-    inserir_inicio(&lista, 20);
-    imprimir(lista);
-    inserir_fim(&lista, 52);
-    imprimir(lista);
-    inserir_posicao(&lista, 250, 4);
-    imprimir(lista);
-    remover_inicio(&lista);
-    imprimir(lista);
-    remover_fim(&lista);
-    imprimir(lista);
+    int opcao, dado;
+    do{
+        printf("\n------------Menu de opções------------\n");
+        printf("Digite |1| para Inserir no Inicio: \n");
+        printf("Digite |2| para Remover no Inicio: \n");
+        printf("Digite |3| para Inserir no Fim: \n");
+        printf("Digite |4| para Remover no Fim: \n");
+        printf("Digite |5| para Inserir por Posição: \n");
+        printf("Digite |6| para Remover por Posição: \n");
+        printf("Digite |7| para Imprimir o Conteudo: \n");
+        printf("Digite |0| para Sair: \n");
+        scanf("%d", &opcao);
+        if(opcao == 1)
+            inserir_inicio(&lista);
+        else if(opcao == 2)
+            remover_inicio(&lista);
+        else if(opcao == 3)
+            inserir_fim(&lista);
+        else if(opcao == 4)
+            remover_fim(&lista);
+        else if(opcao == 5)
+            inserir_posicao(&lista);
+        else if(opcao == 6)
+            remover_por_indice(&lista);
+        else if(opcao == 7)
+            imprimir(lista);
+
+
+
+    }while (opcao != 0);
+
 
     //printf("Hello, World!\n");
     return 0;

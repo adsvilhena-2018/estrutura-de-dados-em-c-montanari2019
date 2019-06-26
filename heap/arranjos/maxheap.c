@@ -1,36 +1,36 @@
 #include<stdio.h>
 
-void minHeap(int vetor[], int tamanho, int i) {
-    int menor = i;
+void maxHeap(int *vetor, int tamanho, int i) {
+    int maior = i;
     int esq = 2 * i + 1;
     int dir = 2 * i + 2;
 
-    if(esq < tamanho && vetor[esq] > vetor[menor])
-        menor = esq;
+    if(esq < tamanho && vetor[esq] < vetor[maior])
+        maior = esq;
 
-    if(dir < tamanho && vetor[dir] > vetor[menor])
-        menor = dir;
+    if(dir < tamanho && vetor[dir] < vetor[maior])
+        maior = dir;
 
-    if(menor != i) {
+    if(maior != i) {
         int aux = vetor[i];
-        vetor[i] = vetor[menor];
-        vetor[menor] = aux;
+        vetor[i] = vetor[maior];
+        vetor[maior] = aux;
 
-        minHeap(vetor, tamanho, menor);
+        maxHeap(vetor, tamanho, maior);
     }
 }
 
 void ordena(int vetor[], int tamanho) {
 
     for(int i = tamanho / 2 - 1; i >= 0; i--)
-        minHeap(vetor, tamanho, i);
+        maxHeap(vetor, tamanho, i);
 
     for(int i=tamanho-1; i>=0; i--) {
         int temp = vetor[0];
         vetor[0] = vetor[i];
         vetor[i] = temp;
 
-        minHeap(vetor, i, 0);
+        maxHeap(vetor, i, 0);
     }
 }
 
